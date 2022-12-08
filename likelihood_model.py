@@ -20,6 +20,20 @@ def calc_log_likelihood_h2(seq_len):
 
     return np.log(1/13) + np.log(1/2) + num_nonrepeats * np.log(1/4) + num_repeats * np.log(1/3)
 
+def calc_log_likelihood_h3(seq_len):
+    num_seq = num_seq_in_h3(seq_len)
+    return -1*np.log(num_seq)
+
+def calc_log_likelihood_all(d):
+    hs = [0]*3
+    hs[0] = calc_log_likelihood_h1(len(d))
+    if is_shuff_by_num(d):
+        hs[1] = calc_log_likelihood_h2(len(d))
+    if is_shuff_by_suit(d):
+        hs[2] = calc_log_likelihood_h3(len(d))
+    
+    return hs
+
 def calculate_likelihood(d):
     """
     Calculates the likelihood of the data for each of the three hypotheses:
@@ -175,3 +189,19 @@ def memoize_num_cards_per_suit():
         memo[i] = memo[i-1] * val
         i += 1
     return memo
+
+# d = [[1,'S'],[2,'S'],[3,'S'],[4,'H'],[5,'H']]
+# d2 = [[13,'H'],[1,'S'],[2,'S'],[3,'S'],[4,'H'],[5,'H']]
+# print(is_shuff_by_suit(d))
+# print(is_shuff_by_num(d2))
+
+# print(calculate_likelihood(d))
+
+print(1/num_seq_in_h3(5))
+print(calc_log_likelihood_h3(5))
+print()
+print(1/num_seq_in_h3(10))
+print(calc_log_likelihood_h3(10))
+print()
+print(1/num_seq_in_h3(15))
+print(calc_log_likelihood_h3(15))
