@@ -1,5 +1,5 @@
 import likelihood_model as lm
-
+import numpy as np
 
 def calculate_bayes_h1(d, prior_h1, prior_h2, prior_h3):
     """
@@ -22,8 +22,8 @@ def calculate_bayes_h1(d, prior_h1, prior_h2, prior_h3):
     likelihood_h1 = lm.calculate_likelihood(d)[0]
     likelihood_h2 = lm.calculate_likelihood(d)[1]
     likelihood_h3 = lm.calculate_likelihood(d)[2]
-    bayes_h1 = likelihood_h1 / (likelihood_h2 * (prior_h2 / (1 - prior_h1)) + likelihood_h3 * (prior_h3 / (1 - prior_h1)))
-    bayes_h2 = likelihood_h2 / (likelihood_h1 * (prior_h1 / (1 - prior_h2)) + likelihood_h3 * (prior_h3 / (1 - prior_h2)))
-    bayes_h3 = likelihood_h3 / (likelihood_h2 * (prior_h2 / (1 - prior_h3)) + likelihood_h1 * (prior_h1 / (1 - prior_h3)))
+    bayes_h1 = np.log(likelihood_h1 / (likelihood_h2 * (prior_h2 / (1 - prior_h1)) + likelihood_h3 * (prior_h3 / (1 - prior_h1))))
+    bayes_h2 = np.log(likelihood_h2 / (likelihood_h1 * (prior_h1 / (1 - prior_h2)) + likelihood_h3 * (prior_h3 / (1 - prior_h2))))
+    bayes_h3 = np.log(likelihood_h3 / (likelihood_h2 * (prior_h2 / (1 - prior_h3)) + likelihood_h1 * (prior_h1 / (1 - prior_h3))))
 
     return [bayes_h1, bayes_h2, bayes_h3]
