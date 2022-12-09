@@ -1,0 +1,16 @@
+series1,series2,series3,series4,series5,series6,series7,series8,series9
+C,S,C,H,C,D,S,D,C
+S,S,C,H,C,H,S,D,S
+S,S,C,H,C,H,S,D,H
+S,S,S,H,S,C,C,D,S
+D,S,S,C,H,H,C,D,S
+,,,C,C,D,H,D,D
+,,,C,C,S,D,D,C
+,,,C,H,D,H,D,S
+,,,C,D,H,H,S,H
+,,,C,H,S,H,S,S
+,,,,,,C,S,H
+,,,,,,H,S,S
+,,,,,,C,S,D
+,,,,,,H,S,S
+,,,,,,C,S,C
