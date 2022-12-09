@@ -4,15 +4,35 @@ import likelihood_model as lm
 import Bayesian_model as bm
 
 def get_series_cards(i, series_cards_values, series_cards_suits):
+    """
+    Gets the card values in series_cards_values and the card suits in series_cards_suits and formats
+    the cards data for series i as (value, suit) for each card in that series.
+    """
     return [(series_cards_values['series'+str(i)][j],series_cards_suits['series'+str(i)][j]) for j in range(series_cards_values['series'+str(i)].count())]
 
 def get_series_means(i, responses_df):
+    """
+    Gets the mean of the google form responses for series i from the responses_df.
+    """
     return [responses_df['series'+str(i)+'_h'+str(j)].mean() for j in range(1,4)]
 
 def get_series_modes(i,responses_df):
+    """
+    Gets the mode of the google form responses for series i from the responses_df.
+    """
     return [responses_df['series'+str(i)+'_h'+str(j)].mode().to_numpy()[0] for j in range(1,4)]
 
 def build_series_info(all_responses_filename, cards_values_filename, cards_suits_filename):
+    """
+    Builds the series_info dict formatted as:
+    {'seriesi': {
+        'cards': [(value,suit)] array from get_series_cards,
+        'mean': [mean_h1, mean_h2, mean_h3] from get_series_means,
+        'mode': [mode_h1, mode_h2, mode_h3] from get_series_modes,
+        'likelihood': [likelihood_h1, likelihood_h2, likelihood_h3] from likelihood_model.py,
+        'bayesian': [bayes_h1, bayes_h2, bayes_h3] from Bayesian_model.py
+    }}
+    """
     responses_df = pd.read_csv(all_responses_filename)
     series_cards_values = pd.read_csv(cards_values_filename)
     series_cards_suits = pd.read_csv(cards_suits_filename)
