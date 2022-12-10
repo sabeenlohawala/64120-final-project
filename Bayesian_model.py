@@ -19,7 +19,7 @@ def calculate_bayes_logs(d, prior_h1=1/3, prior_h2=1/3):
     ------
     :return:s: a list containing the bayesian for all 3 possible hypotheses in the order [P(h1|d), P(h2|d), P(h3|d)]
     """
-    prior_h3 = 1 - prior_h1 - prior_h2
+    prior_h3 = 1 - (prior_h1 + prior_h2)
     likelihood_h1 = lm.calculate_likelihood(d)[0]
     likelihood_h2 = lm.calculate_likelihood(d)[1]
     likelihood_h3 = lm.calculate_likelihood(d)[2]
