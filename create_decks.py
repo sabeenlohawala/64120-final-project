@@ -14,7 +14,6 @@ def create_random_deck():
 
     :return: a fully shuffled deck
     """
-    suits = SUITS.copy()
     deck = set()
     for suite in SUITS:
         suite_cards = {(rank, f'{suite}') for rank in RANKS}
@@ -32,9 +31,11 @@ def create_ascending_deck(deck):
     random.shuffle(deck)
     deck = sorted(deck, key=itemgetter(0))
     ascending_deck = []
+
     for i in range(int(len(deck) / 13)):
         temp_deck = deck[i::4]
-        ascending_deck.append(temp_deck)
+        ascending_deck.extend(temp_deck)
+
     return ascending_deck
 
 
@@ -49,7 +50,7 @@ def create_suit_deck(deck):
     return list(sorted(deck, key=lambda i: sort_order.index(i[1])))
 
 
-def create_sequence(h, n):
+def create_sequence(h, n, deck):
     """
     Input:
     :param h: integer corresponding to the desired hypothesis
@@ -60,25 +61,24 @@ def create_sequence(h, n):
     """
 
     if h == 1:
-        deck = create_random_deck()
+        random.shuffle(deck)
     elif h == 2:
-        deck = create_ascending_deck()
+        deck = create_ascending_deck(deck)
     elif h == 3:
-        deck = create_suit_deck()
+        deck = create_suit_deck(deck)
     else:
         raise Exception("Not a valid hypothesis")
 
-    sequence = []
-    for _ in range(n):
-        sequence.append(deck.pop())
+    i = random.randint(0, len(deck)-n)
+    sequence = deck[i:i+n]
 
     return sequence
 
-# deck = list(create_random_deck())
+#deck = list(create_random_deck())
 #
-# ascending_deck = create_suit_deck(deck)
-# test = create_suit_deck(deck)
-# print(ascending_deck)
+#ascending_deck = create_ascending_deck(deck)
+# test = create_suit_deck(deck)x
+#print(create_sequence(2,5,deck))
 # print(test)
 # # random.shuffle(ascending_deck)
 #
